@@ -20,7 +20,7 @@ if (!aboutMeEntry) {
 }
 
 // Get project entries
-const dropdownOrder = ["about-me", "masters-project"];
+const dropdownOrder = ["links", "about-me", "masters-project"];
 
 const allDropdowns = (await getCollection("dropdowns")).sort((a, b) => {
   const indexA = dropdownOrder.indexOf(a.id);
