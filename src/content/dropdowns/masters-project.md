@@ -1,5 +1,5 @@
 ---
-title: 'Masters Project'
+title: "Master's Project"
 ---
 
-Here is a short description of the project that can include <strong>Strong</strong>, <em>italic</em> and normal text. Also <a href='/blog/a-template/'><code>Internal Links</code></a>.
+Generating audio in real time can seem like a silver bullet for game sound designers. No memory cost? Reaction to any situation? Reusability? It sounds like a dream. So, I explored what it would be like to create and use such a tool. Read more <a href='/blog/masters-project/'><code>here</code></a>.
