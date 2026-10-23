@@ -11,7 +11,7 @@ Generating audio in real time can seem like a silver bullet for game sound desig
 
 But leading procedural audio tools like [Tsugi Gamesynth](https://tsugi-studio.com/web/en/products-gamesynth.html) don't integrate into game engines or middleware in real time. So you're gonna have to create your own.
 
-What kind of usability can you expect creating your own procedural audio system? Especially using simple, free tools? That's the question I wanted to answer in my recording arts master's project at CU Denver, read on for for a summary of my findings and the [source code](https://github.com/5wiley) for my system.
+What kind of usability can you expect creating your own procedural audio system? Especially using simple, free tools? That's the question I wanted to answer in my recording arts master's project at CU Denver, read on for a summary of my findings and the [source code](https://github.com/twcotton/ChaosClothRTPCFunctions) for my system.
 
 # Project Structure
 
@@ -27,9 +27,8 @@ The plugin is written to read the `FClothSimulData` struct found in simulated sk
 
 The Pd patch is just a prototype to use the [Sound Design Toolkit](https://github.com/SkAT-VG/SDT), an open source "virtual foley box" C++ library for generating physical sounds using basic synthesis methods. I used the `scraping~` object to generate a random trigger sequence like an uneven surface to drive the `friction~` object, which actually makes the sound. The speed and contact RTPCs work to control the intensity of the SDT objects. You can scale the parameter's effects in Pd using simple multiplication.
 
-# Port
+# Results
 
-## References
+The Pd patch worked as a proof of concept, showing the interaction between two objects sonically. However, the resulting sound didn't really sound like cloth. Without more testing, we can't know which aspects of the system were lacking. But I believe the synthesis model was the main culprit. I think the blueprint plugin has good interactivity that could be useful for other cloth sound systems.
 
-- [Markdown Syntax](https://www.markdownguide.org/basic-syntax/)
-- [Hugo Markdown](https://gohugo.io/content-management/formats/#markdown)
+To read more about my results and see the demo videos, check out my [thesis repo](https://github.com/twcotton/ProceduralSoundGenerationForUnrealEngineClothSimulations)!
