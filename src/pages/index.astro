@@ -20,7 +20,7 @@ if (!aboutMeEntry) {
 }
 
 // Get project entries
-const dropdownOrder = ["links", "about-me", "masters-project"];
+const dropdownOrder = ["links", "masters-project", "about-me"];
 
 const allDropdowns = (await getCollection("dropdowns")).sort((a, b) => {
   const indexA = dropdownOrder.indexOf(a.id);
@@ -55,12 +55,13 @@ const { Content: AboutMe } = await render(aboutMeEntry);
     </div>
   </section> -->
 
-  <section class="project-selection">
+  <!-- Not using project selection to start with, only dropdowns so it can be up-to-date -->
+  <!-- <section class="project-selection">
     <h2>My Projects</h2>
     <div class="project-grid">
       {allProjects.map((project) => <ProjectTiles project={project} />)}
     </div>
-  </section>
+  </section> -->
 </BaseLayout>
 
 <style>
