@@ -1,20 +1,57 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const postsWithContent = await Promise.all(
+  sortedPosts.map(async (post) => {
+    const { Content } = await render(post);
+    return { post, Content };
+  }),
+);
 ---
+
 <BaseLayout title="Blog - Tom Wiley Cotton">
-  <h1>Blog</h1>
-  <ul>
-    {sortedPosts.map(post => (
-      <li>
-        <a href={`/blog/${post.id}`}>{post.data.title}</a>
-        - <time datetime={post.data.pubDate.toISOString()}>
-            {post.data.pubDate.toLocaleDateString()}
-          </time>
-      </li>
-    ))}
-  </ul>
+  <!-- <h1>Blog</h1> -->
+  <div class="blog-posts">
+    {
+      postsWithContent.map(({ post, Content }) => (
+        <article class="blog-entry">
+          <header class="title">
+            <h2>
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h2>
+            <p>
+              <time datetime={post.data.pubDate.toISOString()}>
+                <em>Published on: {post.data.pubDate.toLocaleDateString()}</em>
+              </time>
+            </p>
+          </header>
+          <div class="blog-content">
+            <Content />
+          </div>
+        </article>
+      ))
+    }
+  </div>
 </BaseLayout>
+
+<style>
+  .title,
+  .title :global(h2) {
+    font-family: "Iosevka Web", monospace;
+  }
+  .blog-content :global(h1) {
+    font-family: "Iosevka Web", monospace;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+</style>

@@ -11,6 +11,15 @@ const blogCollection = defineCollection({
   })
 });
 
+// 2. Dropdowns Collection
+const dropdownsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/dropdowns" }),
+  // Astro's image() helper validates local images
+  schema: ({ image }) => z.object({
+    title: z.string()
+  })
+});
+
 // 2. Projects Collection
 const projectsCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
@@ -19,8 +28,8 @@ const projectsCollection = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
-    link: z.string().url().optional(),
-    
+    link: z.string().optional(),
+
     // Flexible Thumbnail Options
     thumbnail: z.object({
       local: image().optional(), // Picture stored in the file tree
@@ -39,8 +48,19 @@ const pagesCollection = defineCollection({
   })
 });
 
-export const collections = { 
-  blog: blogCollection, 
-  projects: projectsCollection, 
-  pages: pagesCollection 
+// 4. Modules Collection
+const modulesCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/modules" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  })
+});
+
+export const collections = {
+  blog: blogCollection,
+  dropdowns: dropdownsCollection,
+  projects: projectsCollection,
+  pages: pagesCollection,
+  modules: modulesCollection
 };
